@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Gamerspot</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="action_settings">Settings</string>
+
+    <plurals name="new_feeds_plurals">
+        <item quantity="zero">No updates</item>
+        <item quantity="one">1 new update</item>
+        <item quantity="other">%d new updates</item>
+    </plurals>
+
+</resources>

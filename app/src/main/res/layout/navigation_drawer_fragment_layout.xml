@@ -1,0 +1,9 @@
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    android:id="@+id/navigation_drawer_fragment"
+    android:layout_width="@dimen/navigation_drawer_width"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:name="com.adrianlesniak.gamerspot.fragments.NavigationDrawerFragment"
+    tools:layout="@layout/fragment_navigation_drawer" />

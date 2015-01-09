@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="feed_item_title">#000</color>
+    <color name="feed_item_creator">#37474F</color>
+    <color name="feed_item_date">#37474F</color>
+    <color name="feed_item_separator">#90A4AE</color>
+
+    <color name="primaryDark">#1565C0</color>
+    <color name="primary">#2196F3</color>
+
+    <color name="colorRed">#F50057</color>
+    <color name="colorYellow">#FFEB3B</color>
+    <color name="colorGray">#37474F</color>
+    <!--<color name="colorGrey">#3C3C3C</color>-->
+</resources>
