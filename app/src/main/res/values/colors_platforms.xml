@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="platform_all">@android:color/black</color>
+    <color name="platform_pc">@android:color/white</color>
+    <color name="platform_xbox">#4CAF50</color>
+    <color name="platform_ps">#3F51B5</color>
+    <color name="platform_nintendo">#2196F3</color>
+    <color name="platform_mobile">#F44336</color>
+
+</resources>

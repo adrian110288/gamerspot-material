@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="connection_exception_error">Error downloading feed. Try again later</string>
+    <string name="no_new_tweets">No new feeds</string>
+    <string name="new_feeds_count"> new game news added. Scroll up to see them</string>
+    <string name="no_network_connection">Please check your internet connection</string>
+    <string name="network_connecton_lost">Cannot check news at this time</string>
+    <string name="article_added_to_fav">Article added to favourites</string>
+    <string name="article_removed_from_fav">Article removed from favourites</string>
+
+</resources>

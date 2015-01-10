@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee">
+
+    <com.adrianlesniak.gamerspot.views.FeedImage
+        android:id="@+id/feed_main_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:visibility="gone" />
+
+    <com.adrianlesniak.gamerspot.views.CustomScrollView
+        android:id="@+id/layout_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Space
+                android:id="@+id/scroll_view_space"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/details_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryDark"
+                android:elevation="4dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="8dp">
+
+                <com.adrianlesniak.gamerspot.views.GamerSpotTextView
+                    android:id="@+id/details_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:textSize="28sp" />
+
+                <com.adrianlesniak.gamerspot.views.GamerSpotTextView
+                    android:id="@+id/details_creator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/details_title"
+                    android:textSize="16sp" />
+
+                <com.adrianlesniak.gamerspot.views.GamerSpotTextView
+                    android:id="@+id/details_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/details_creator"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/details_desc_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eeeeee"
+                android:padding="@dimen/activity_horizontal_margin">
+
+                <com.adrianlesniak.gamerspot.views.GamerSpotTextView
+                    android:id="@+id/details_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="2dp"
+                    android:textColor="#263238"
+                    android:textSize="19sp" />
+
+            </LinearLayout>
+
+            <!--<com.adrianlesniak.gamerspot.views.GamerSpotButton-->
+            <!--android:id="@+id/button_full_article"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:onClick="goToFullArticle"-->
+            <!--custom:type="article" />-->
+
+        </LinearLayout>
+
+    </com.adrianlesniak.gamerspot.views.CustomScrollView>
+
+
+</RelativeLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="drawer_item_selected">#383838</color>
+    <color name="drawer_item">@android:color/transparent</color>
+    <color name="drawer_item_text_selected">@android:color/white</color>
+    <color name="drawer_item_text">#cccccc</color>
+
+    <color name="drawer_background_color">@color/colorGray</color>
+
+    <color name="drawer_item_all">@color/platform_all</color>
+    <color name="drawer_item_pc">@color/platform_pc</color>
+    <color name="drawer_item_xbox">@color/platform_xbox</color>
+    <color name="drawer_item_ps">@color/platform_ps</color>
+    <color name="drawer_item_nintendo">@color/platform_nintendo</color>
+    <color name="drawer_item_mobile">@color/platform_mobile</color>
+    <color name="drawer_item_favourite">@color/colorYellow</color>
+
+</resources>
