@@ -6,10 +6,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
@@ -20,6 +23,7 @@ import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
 import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 import com.adrianlesniak.gamerspot.views.CustomScrollView;
 import com.adrianlesniak.gamerspot.views.FeedImage;
+import com.adrianlesniak.gamerspot.views.StickyScrollView;
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -45,11 +49,13 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
     @InjectView(R.id.details_description)
     TextView descriptionView;
     @InjectView(R.id.layout_scroll_view)
-    CustomScrollView mScrollView;
+    StickyScrollView mScrollView;
     @InjectView(R.id.scroll_view_space)
     Space mSpace;
     @InjectView(R.id.fab)
     FloatingActionButton mFab;
+    @InjectView(R.id.details_header_layout)
+    RelativeLayout mHeaderView;
     //    @InjectView(R.id.button_full_article) GamerSpotButton fullArticleButton;
 
     private String LOG = "ATTACH";
@@ -74,7 +80,8 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_news_details, container, false);
+        View view =  inflater.inflate(R.layout.fragment_news_details, container, false);
+
         ButterKnife.inject(this, view);
 
         if (urlList.size() >= 1) {

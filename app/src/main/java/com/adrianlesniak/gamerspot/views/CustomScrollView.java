@@ -1,9 +1,13 @@
 package com.adrianlesniak.gamerspot.views;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
 
+import com.adrianlesniak.gamerspot.fragments.NewsDetailsFragment;
 import com.melnykov.fab.ObservableScrollView;
 
 /**
@@ -17,10 +21,20 @@ public class CustomScrollView extends ObservableScrollView {
 
     public CustomScrollView(Context context) {
         super(context);
+        init();
     }
 
     public CustomScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    public CustomScrollView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    private void init() {
+//        setOnScrollChangedListener(this);
     }
 
     public void setScrollingEnabled(boolean enabled) {
