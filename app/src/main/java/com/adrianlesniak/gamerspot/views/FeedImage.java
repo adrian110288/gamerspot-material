@@ -26,14 +26,13 @@ import com.squareup.picasso.Picasso;
 public class FeedImage extends RelativeLayout {
 
     private static final String BACKGROUND_COLOR = "#80000000";
-    private static final int MIN_HEIGHT =160;
-
+    private static final int MIN_HEIGHT = 160;
+    public int imageHeight = 0;
     private Context mContext;
     private ProgressBar mProgressBar;
     private ImageView mImageView;
     private ImageView mErrorImage;
     private String mUrl;
-    public int imageHeight = 0;
 
     public FeedImage(Context context) {
         super(context);
@@ -83,31 +82,12 @@ public class FeedImage extends RelativeLayout {
         child.setLayoutParams(params);
     }
 
-    private class DownloadCallback implements Callback {
-
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-        @Override
-        public void onSuccess() {
-
-            mImageView.setVisibility(INVISIBLE);
-            FeedImage.super.addView(mImageView);
-            removeView(mProgressBar);
-            revealImage();
-        }
-
-        @Override
-        public void onError() {
-            addViewInCenter(mErrorImage);
-            removeView(mProgressBar);
-        }
-    }
-
-    private void revealImage(){
+    private void revealImage() {
 
         final Drawable d = mImageView.getDrawable();
         imageHeight = d.getIntrinsicHeight();
 
-        if(Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
 
 
             mImageView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
@@ -116,10 +96,10 @@ public class FeedImage extends RelativeLayout {
                 @Override
                 public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                     Animator anim = ViewAnimationUtils.createCircularReveal(mImageView,
-                            d.getIntrinsicWidth()/2,
+                            d.getIntrinsicWidth() / 2,
                             d.getIntrinsicHeight() / 2,
                             0,
-                            d.getIntrinsicWidth()*2);
+                            d.getIntrinsicWidth() * 2);
 
                     anim.setDuration(600);
                     anim.addListener(new AnimatorListenerAdapter() {
@@ -136,6 +116,25 @@ public class FeedImage extends RelativeLayout {
 
         } else {
             mImageView.setVisibility(VISIBLE);
+        }
+    }
+
+    private class DownloadCallback implements Callback {
+
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void onSuccess() {
+
+            mImageView.setVisibility(INVISIBLE);
+            FeedImage.super.addView(mImageView);
+            removeView(mProgressBar);
+            revealImage();
+        }
+
+        @Override
+        public void onError() {
+            addViewInCenter(mErrorImage);
+            removeView(mProgressBar);
         }
     }
 

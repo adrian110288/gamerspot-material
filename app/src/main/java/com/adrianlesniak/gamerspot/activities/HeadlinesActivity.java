@@ -9,7 +9,7 @@ import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
 import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 
 
-public class HeadlinesActivity extends NavigationDrawerActivity implements OnHeadlineSelectedListener{
+public class HeadlinesActivity extends NavigationDrawerActivity implements OnHeadlineSelectedListener {
 
     private NewsHeadlinesFragment headlinesFragment;
 

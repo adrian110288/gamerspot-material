@@ -18,7 +18,7 @@
         android:id="@+id/item_icon"
         android:layout_width="26dp"
         android:layout_height="26dp"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical" />
 
     <com.adrianlesniak.gamerspot.views.GamerSpotTextView
         android:id="@+id/drawer_news_listItem_textView"

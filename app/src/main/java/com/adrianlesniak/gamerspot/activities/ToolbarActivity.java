@@ -25,7 +25,7 @@ public class ToolbarActivity extends ActionBarActivity {
         getSupportActionBar().getThemedContext();
     }
 
-    private void obtainReferences(){
+    private void obtainReferences() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
     }
 }

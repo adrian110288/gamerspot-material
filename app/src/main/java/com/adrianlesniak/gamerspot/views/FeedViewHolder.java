@@ -6,15 +6,15 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
+import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
+import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 
 /**
  * Created by Adrian on 10-Jun-14.
  */
-public class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private Context mContext;
     private OnHeadlineSelectedListener mCallback;

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,18 +16,18 @@
         <com.adrianlesniak.gamerspot.views.FeedImage
             android:id="@+id/feed_main_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <RelativeLayout
             android:id="@+id/details_header_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
             android:layout_marginBottom="14dp"
+            android:elevation="4dp"
+            android:paddingBottom="8dp"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingTop="8dp">
 
             <com.adrianlesniak.gamerspot.views.GamerSpotTextView
                 android:id="@+id/details_title"
@@ -72,12 +71,12 @@
         </LinearLayout>
 
         <!--<com.adrianlesniak.gamerspot.views.GamerSpotButton-->
-            <!--android:id="@+id/button_full_article"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:onClick="goToFullArticle"-->
-            <!--custom:type="article" />-->
+        <!--android:id="@+id/button_full_article"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:onClick="goToFullArticle"-->
+        <!--custom:type="article" />-->
 
     </LinearLayout>
 

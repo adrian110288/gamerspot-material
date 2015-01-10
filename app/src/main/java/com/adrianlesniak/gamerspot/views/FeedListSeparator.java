@@ -7,8 +7,8 @@ import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
 import com.adrianlesniak.gamerspot.R;
+import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
 
 /**
  * Created by Adrian on 04-Jan-15.

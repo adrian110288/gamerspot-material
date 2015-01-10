@@ -2,7 +2,6 @@ package com.adrianlesniak.gamerspot.activities;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.FrameLayout;
 
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.fragments.NavigationDrawerFragment;
@@ -21,7 +20,7 @@ public class NavigationDrawerActivity extends ToolbarActivity implements Navigat
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer_fragment, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
     }
 
-    private void obtainReferences(){
+    private void obtainReferences() {
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer_fragment);
     }
 

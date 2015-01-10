@@ -10,7 +10,7 @@ import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 /**
  * Created by Adrian Lesniak on 16-Jun-14.
  */
-public class NewsDetailsActivity extends ToolbarActivity{
+public class NewsDetailsActivity extends ToolbarActivity {
 
     private NewsDetailsFragment detailsFragment;
 

@@ -3,7 +3,6 @@ package com.adrianlesniak.gamerspot.utilities;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -90,13 +89,13 @@ public class CommonUtilities {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
-    public static int convertDpToPx(float dp){
-        return Math.round(dp*(context.getResources().getDisplayMetrics().xdpi/DisplayMetrics.DENSITY_DEFAULT));
+    public static int convertDpToPx(float dp) {
+        return Math.round(dp * (context.getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
 
     }
 
-    public static int convertPxToDp(float px){
-        return Math.round(px/(Resources.getSystem().getDisplayMetrics().xdpi/ DisplayMetrics.DENSITY_DEFAULT));
+    public static int convertPxToDp(float px) {
+        return Math.round(px / (Resources.getSystem().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
 

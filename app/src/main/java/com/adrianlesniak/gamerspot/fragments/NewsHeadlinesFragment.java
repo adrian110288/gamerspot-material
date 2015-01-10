@@ -5,13 +5,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,15 +40,15 @@ public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnS
 
 //    private static FeedFetcherTask downloadTask;
 
-    @InjectView(R.id.headlines_recycler_view) RecyclerView mRecyclerView;
-
     private static ArrayList<NewsFeed> feedList = new ArrayList<NewsFeed>();
+    @InjectView(R.id.headlines_recycler_view)
+    RecyclerView mRecyclerView;
     private Context mContext;
 
     private NewsFeedsRecyclerViewAdapter feedsAdapter;
     private OnHeadlineSelectedListener mCallback;
     private DAO dao;
-//    private SearchDialogFragment searchDialogFragment;
+    //    private SearchDialogFragment searchDialogFragment;
 //    private AboutDialogFragment aboutDialogFragment;
     private FeedFetchHandler feedFetchHandler;
 //    private int mLastFirstVisibleItem = 0;
@@ -82,7 +80,7 @@ public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnS
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if(activity instanceof OnHeadlineSelectedListener) {
+        if (activity instanceof OnHeadlineSelectedListener) {
             mCallback = (OnHeadlineSelectedListener) activity;
         }
     }

@@ -63,7 +63,7 @@ public class NavigationDrawerListAdapter extends ArrayAdapter<String> {
         int color = 0;
         int icon = 0;
 
-        switch (position){
+        switch (position) {
 
             case 0: {
                 color = R.color.drawer_item_all;
@@ -102,7 +102,7 @@ public class NavigationDrawerListAdapter extends ArrayAdapter<String> {
             }
         }
 
-        if(icon != 0 && color != 0) {
+        if (icon != 0 && color != 0) {
             holder.indicator.setBackgroundColor(mContext.getResources().getColor(color));
             holder.itemIcon.setImageDrawable(mContext.getResources().getDrawable(icon));
             setAlphaOnIcon(holder.itemIcon);

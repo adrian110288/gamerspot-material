@@ -6,12 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -35,18 +33,25 @@ import butterknife.InjectView;
  */
 public class NewsDetailsFragment extends Fragment implements FullArticleClickListener {
 
-    @InjectView(R.id.feed_main_image) FeedImage mFeedMainImage;
-    @InjectView(R.id.details_title) TextView titleView;
-    @InjectView(R.id.details_creator) TextView creatorView;
-    @InjectView(R.id.details_date) TextView dateView;
-    @InjectView(R.id.details_description) TextView descriptionView;
-    @InjectView(R.id.details_desc_layout) LinearLayout descriptionLinearLayout;
-    @InjectView(R.id.details_header_layout) RelativeLayout mHeaderLayout;
-    @InjectView(R.id.layout_scroll_view) ScrollView mScrollView;
-
-//    @InjectView(R.id.button_full_article) GamerSpotButton fullArticleButton;
-
     private static List<String> urlList;
+    @InjectView(R.id.feed_main_image)
+    FeedImage mFeedMainImage;
+    @InjectView(R.id.details_title)
+    TextView titleView;
+    @InjectView(R.id.details_creator)
+    TextView creatorView;
+    @InjectView(R.id.details_date)
+    TextView dateView;
+    @InjectView(R.id.details_description)
+    TextView descriptionView;
+    @InjectView(R.id.details_desc_layout)
+    LinearLayout descriptionLinearLayout;
+    @InjectView(R.id.details_header_layout)
+    RelativeLayout mHeaderLayout;
+
+    //    @InjectView(R.id.button_full_article) GamerSpotButton fullArticleButton;
+    @InjectView(R.id.layout_scroll_view)
+    ScrollView mScrollView;
     private NewsFeed feed;
     private int descriptionLayoutWidth = 0;
 
@@ -78,7 +83,7 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(urlList.size() != 0) {
+        if (urlList.size() != 0) {
             mFeedMainImage.setImageFromUrl(urlList.get(0));
             setScrollViewOffset();
         } else {

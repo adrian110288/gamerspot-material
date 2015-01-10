@@ -10,9 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.internal.app.ToolbarActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,26 +20,20 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.adrianlesniak.gamerspot.activities.NavigationDrawerActivity;
-import com.adrianlesniak.gamerspot.activities.ToolbarActivity;
-import com.adrianlesniak.gamerspot.adapters.NavigationDrawerListAdapter;
 import com.adrianlesniak.gamerspot.R;
+import com.adrianlesniak.gamerspot.adapters.NavigationDrawerListAdapter;
 
 public class NavigationDrawerFragment extends Fragment {
 
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
-
+    private static int mCurrentSelectedPosition = 0;
     private NavigationDrawerCallbacks mCallbacks;
-
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
     private View mFragmentContainerView;
-
-    private static int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private boolean mDrawerFirstTimeOpened = true;
@@ -49,6 +41,10 @@ public class NavigationDrawerFragment extends Fragment {
     private NavigationDrawerListAdapter navigationDrawerListAdapter;
 
     public NavigationDrawerFragment() {
+    }
+
+    public static int getDrawerItemSelected() {
+        return mCurrentSelectedPosition;
     }
 
     @Override
@@ -71,7 +67,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
@@ -134,11 +130,11 @@ public class NavigationDrawerFragment extends Fragment {
             public void onDrawerStateChanged(int newState) {
                 super.onDrawerStateChanged(newState);
 
-                if(mDrawerFirstTimeOpened) {
+                if (mDrawerFirstTimeOpened) {
                     checkItem();
                     mDrawerFirstTimeOpened = false;
-                    }
                 }
+            }
         };
 
         mDrawerToggle.setDrawerIndicatorEnabled(true);
@@ -161,7 +157,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         if (mDrawerListView != null) {
 
-            if(position != mCurrentSelectedPosition) {
+            if (position != mCurrentSelectedPosition) {
                 resetDrawerItem();
                 mCurrentSelectedPosition = position;
                 checkItem();
@@ -176,9 +172,9 @@ public class NavigationDrawerFragment extends Fragment {
         }
     }
 
-    private void resetDrawerItem(){
+    private void resetDrawerItem() {
 
-        new Runnable(){
+        new Runnable() {
 
             @Override
             public void run() {
@@ -193,15 +189,15 @@ public class NavigationDrawerFragment extends Fragment {
         }.run();
     }
 
-    private void checkItem(){
+    private void checkItem() {
 
-        new Runnable(){
+        new Runnable() {
 
             @Override
             public void run() {
                 View drawerItem = mDrawerListView.getChildAt(mCurrentSelectedPosition);
                 drawerItem.setBackgroundResource(R.color.drawer_item_selected);
-                ((TextView)drawerItem.findViewById(R.id.drawer_news_listItem_textView)).setTextColor(getResources().getColor((android.R.color.white)));
+                ((TextView) drawerItem.findViewById(R.id.drawer_news_listItem_textView)).setTextColor(getResources().getColor((android.R.color.white)));
                 setAlphaOnIcon(drawerItem.findViewById(R.id.item_icon), 1f);
                 drawerItem.findViewById(R.id.drawer_news_listItem_indicator).setVisibility(View.VISIBLE);
             }
@@ -209,16 +205,12 @@ public class NavigationDrawerFragment extends Fragment {
 
     }
 
-    public static int getDrawerItemSelected(){
-        return mCurrentSelectedPosition;
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        if(activity instanceof NavigationDrawerCallbacks) {
-                mCallbacks = (NavigationDrawerCallbacks) activity;
+        if (activity instanceof NavigationDrawerCallbacks) {
+            mCallbacks = (NavigationDrawerCallbacks) activity;
         }
     }
 
@@ -240,17 +232,12 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    public static interface NavigationDrawerCallbacks {
-
-        void onNavigationDrawerItemSelected(int position);
-    }
-
     private void setAlphaOnIcon(View iconIn, float alphaLevel) {
 
         float alphaFrom;
         float alphaTo;
 
-        if(alphaLevel>0.5) {
+        if (alphaLevel > 0.5) {
             alphaFrom = 0.5f;
             alphaTo = alphaLevel;
         } else {
@@ -268,5 +255,10 @@ public class NavigationDrawerFragment extends Fragment {
             iconIn.setAlpha(alphaLevel);
         }
 
+    }
+
+    public static interface NavigationDrawerCallbacks {
+
+        void onNavigationDrawerItemSelected(int position);
     }
 }
