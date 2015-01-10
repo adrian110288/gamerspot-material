@@ -74,11 +74,6 @@ public class NewsFeed implements Serializable, Comparable {
         return date;
     }
 
-    public void setDate(long milisecondsIn) {
-
-        date = new Date(milisecondsIn);
-    }
-
     public void setDate(String dateIn) {
         try {
             date = new Date(dateIn);
@@ -91,6 +86,11 @@ public class NewsFeed implements Serializable, Comparable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setDate(long milisecondsIn) {
+
+        date = new Date(milisecondsIn);
     }
 
     public String getCreator() {

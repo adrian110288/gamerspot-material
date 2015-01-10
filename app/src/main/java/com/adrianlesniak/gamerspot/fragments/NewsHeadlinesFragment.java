@@ -24,6 +24,7 @@ import com.adrianlesniak.gamerspot.adapters.NewsFeedsRecyclerViewAdapter;
 import com.adrianlesniak.gamerspot.database.DAO;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
 import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
+import com.adrianlesniak.gamerspot.utilities.FeedFetcherTask;
 import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 import com.adrianlesniak.gamerspot.views.CustomTypefaceSpan;
 import com.adrianlesniak.gamerspot.views.FeedListSeparator;
@@ -38,8 +39,7 @@ import butterknife.InjectView;
  */
 public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnScrollListener*/ {
 
-//    private static FeedFetcherTask downloadTask;
-
+    private static FeedFetcherTask downloadTask;
     private static ArrayList<NewsFeed> feedList = new ArrayList<NewsFeed>();
     @InjectView(R.id.headlines_recycler_view)
     RecyclerView mRecyclerView;
@@ -105,8 +105,8 @@ public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnS
 //        registerForContextMenu(listView);
 
         if (CommonUtilities.isOnline()) {
-//            downloadTask = new FeedFetcherTask(mContext, feedFetchHandler);
-//            downloadTask.execute();
+            downloadTask = new FeedFetcherTask(mContext, feedFetchHandler);
+            downloadTask.execute();
         } else {
             Toast.makeText(getActivity(), getResources().getString(R.string.no_network_connection), Toast.LENGTH_SHORT).show();
         }

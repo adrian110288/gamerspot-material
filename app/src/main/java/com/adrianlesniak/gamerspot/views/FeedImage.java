@@ -2,6 +2,7 @@ package com.adrianlesniak.gamerspot.views;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
@@ -11,9 +12,14 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
@@ -26,12 +32,19 @@ import com.squareup.picasso.Picasso;
 public class FeedImage extends RelativeLayout {
 
     private static final String BACKGROUND_COLOR = "#80000000";
-    private static final int MIN_HEIGHT = 160;
-    public int imageHeight = 0;
+    private static final String FAKEBAR_COLOR = "#18FFFF";
+    private static final int MIN_HEIGHT = 200;
+    private static final int REVEAL_DURATION = 600;
+    private static final int FAKEBAR_HEIGHT_IN_DP = 4;
+    public int mImageHeight = 0;
+    public int mImageWidth = 0;
     private Context mContext;
     private ProgressBar mProgressBar;
     private ImageView mImageView;
     private ImageView mErrorImage;
+    private Space mSpace;
+    private Drawable mImageDrawable;
+    private View mFakeProgressBar;
     private String mUrl;
 
     public FeedImage(Context context) {
@@ -51,11 +64,28 @@ public class FeedImage extends RelativeLayout {
         mImageView = new ImageView(mContext);
         setImageViewLayoutParams();
         mErrorImage = new ImageView(mContext);
-        mErrorImage.setOnClickListener(new ErrorImageListener());
         mErrorImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_problem));
         setLayoutParams();
         setBackgroundColor(Color.parseColor(BACKGROUND_COLOR));
         setMinimumHeight(CommonUtilities.convertDpToPx(MIN_HEIGHT));
+        instantiateFakeProgressBar();
+    }
+
+    private void instantiateFakeProgressBar() {
+        mFakeProgressBar = new View(mContext);
+//        mFakeProgressBar.setBackgroundColor(Color.parseColor(FAKEBAR_COLOR));
+        mFakeProgressBar.setBackgroundResource(R.drawable.glow);
+        this.addView(mFakeProgressBar, 1);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtilities.convertDpToPx(1), CommonUtilities.convertDpToPx(FAKEBAR_HEIGHT_IN_DP));
+        params.addRule(ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        params.addRule(ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+        mFakeProgressBar.setLayoutParams(params);
+    }
+
+    public void setSpaceForScrollView(Space spaceIn) {
+        mSpace = spaceIn;
+        mSpace.setOnClickListener(new ErrorImageListener());
     }
 
     private void setImageViewLayoutParams() {
@@ -82,53 +112,12 @@ public class FeedImage extends RelativeLayout {
         child.setLayoutParams(params);
     }
 
-    private void revealImage() {
-
-        final Drawable d = mImageView.getDrawable();
-        imageHeight = d.getIntrinsicHeight();
-
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-
-
-            mImageView.addOnLayoutChangeListener(new OnLayoutChangeListener() {
-
-                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                    Animator anim = ViewAnimationUtils.createCircularReveal(mImageView,
-                            d.getIntrinsicWidth() / 2,
-                            d.getIntrinsicHeight() / 2,
-                            0,
-                            d.getIntrinsicWidth() * 2);
-
-                    anim.setDuration(600);
-                    anim.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationStart(Animator animation) {
-                            super.onAnimationStart(animation);
-                            mImageView.setVisibility(VISIBLE);
-                        }
-                    });
-
-                    anim.start();
-                }
-            });
-
-        } else {
-            mImageView.setVisibility(VISIBLE);
-        }
-    }
-
     private class DownloadCallback implements Callback {
 
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onSuccess() {
-
-            mImageView.setVisibility(INVISIBLE);
-            FeedImage.super.addView(mImageView);
-            removeView(mProgressBar);
-            revealImage();
+            new ImageRevealThread().run();
         }
 
         @Override
@@ -145,6 +134,105 @@ public class FeedImage extends RelativeLayout {
             removeView(mErrorImage);
             addView(mProgressBar);
             setImageFromUrl(mUrl);
+        }
+    }
+
+    private class ImageRevealThread extends Thread {
+
+        @Override
+        public void run() {
+            mImageView.setVisibility(INVISIBLE);
+            FeedImage.super.addView(mImageView, 0);
+            mImageHeight = FeedImage.this.getMeasuredHeight();
+            mImageWidth = FeedImage.this.getMeasuredWidth();
+            setSpaceHeight();
+            removeView(mProgressBar);
+            revealImage();
+        }
+
+        private void revealImage() {
+
+            AlphaAnimation alphaAnimation = new AlphaAnimation(0f, 1f);
+            alphaAnimation.setDuration(REVEAL_DURATION -300);
+            alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    startFakeProgress();
+                    mImageView.setVisibility(VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            mImageView.startAnimation(alphaAnimation);
+
+//            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
+//
+//                    Animator anim = ViewAnimationUtils.createCircularReveal(mImageView,
+//                            mImageWidth / 2,
+//                            mImageHeight / 2,
+//                            0,
+//                            mImageWidth * 2);
+//
+//                    anim.setDuration(REVEAL_DURATION);
+//                    anim.addListener(new AnimatorListenerAdapter() {
+//
+//                        @SuppressLint("NewApi")
+//                        @Override
+//                        public void onAnimationStart(Animator animation) {
+//                            super.onAnimationStart(animation);
+//                            startFakeProgress();
+//                            mImageView.setVisibility(VISIBLE);
+//                        }
+//                    });
+//
+//                    anim.start();
+//
+//           } else {
+//                mImageView.setVisibility(VISIBLE);
+//            }
+        }
+
+        private void startFakeProgress() {
+
+            ScaleAnimation scaleAnimation = new ScaleAnimation(1, FeedImage.this.getRight(), 1f, 1f, Animation.RELATIVE_TO_PARENT, Animation.RELATIVE_TO_SELF);
+            scaleAnimation.setDuration(REVEAL_DURATION / 3);
+            scaleAnimation.setFillAfter(true);
+            scaleAnimation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    FeedImage.this.removeView(mFakeProgressBar);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
+            mFakeProgressBar.startAnimation(scaleAnimation);
+        }
+
+        private void setSpaceHeight() {
+
+            if (mSpace != null) {
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mSpace.getLayoutParams();
+                params.height = mImageHeight;
+                mSpace.setLayoutParams(params);
+            }
         }
     }
 }
