@@ -3,12 +3,13 @@ package com.adrianlesniak.gamerspot.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ScrollView;
+
+import com.melnykov.fab.ObservableScrollView;
 
 /**
  * Created by adrian110288 on 10/01/2015.
  */
-public class CustomScrollView extends ScrollView {
+public class CustomScrollView extends ObservableScrollView {
 
     // true if we can scroll the ScrollView
     // false if we cannot scroll

@@ -20,6 +20,7 @@ import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
 import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 import com.adrianlesniak.gamerspot.views.CustomScrollView;
 import com.adrianlesniak.gamerspot.views.FeedImage;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +46,13 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
     TextView descriptionView;
     @InjectView(R.id.layout_scroll_view)
     CustomScrollView mScrollView;
-
-    //    @InjectView(R.id.button_full_article) GamerSpotButton fullArticleButton;
     @InjectView(R.id.scroll_view_space)
     Space mSpace;
+    @InjectView(R.id.fab)
+    FloatingActionButton mFab;
+    //    @InjectView(R.id.button_full_article) GamerSpotButton fullArticleButton;
+
+    private String LOG = "ATTACH";
     private NewsFeed feed;
     private int descriptionLayoutWidth = 0;
 
@@ -74,12 +78,12 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
         ButterKnife.inject(this, view);
 
         if (urlList.size() >= 1) {
-
             mFeedMainImage.setVisibility(View.VISIBLE);
             mSpace.setVisibility(View.VISIBLE);
             mFeedMainImage.setImageFromUrl(urlList.get(0));
         }
 
+        mFab.attachToScrollView(mScrollView);
         mScrollView.setScrollingEnabled(true);
 
         return view;

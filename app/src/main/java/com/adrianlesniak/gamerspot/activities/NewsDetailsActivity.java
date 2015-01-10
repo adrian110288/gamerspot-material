@@ -27,7 +27,7 @@ public class NewsDetailsActivity extends ToolbarActivity {
         b.putBoolean("searched", isSearched);
         detailsFragment.setArguments(b);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.content_frame, detailsFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, detailsFragment).commit();
     }
 
     public void goToFullArticle(View view) {
