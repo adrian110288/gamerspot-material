@@ -1,16 +1,11 @@
 package com.adrianlesniak.gamerspot.views;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.adrianlesniak.gamerspot.fragments.NewsDetailsFragment;
 import com.melnykov.fab.ObservableScrollView;
 
 /**
@@ -18,9 +13,9 @@ import com.melnykov.fab.ObservableScrollView;
  */
 public class ParallaxScrollView extends ObservableScrollView {
 
+    private static final float PARALLAX_SPEED = 0.6f;
     private View mParallaxingView;
     private RelativeLayout.LayoutParams params;
-    private static final float PARALLAX_SPEED = 0.6f;
 
     public ParallaxScrollView(Context context) {
         super(context);
@@ -43,9 +38,9 @@ public class ParallaxScrollView extends ObservableScrollView {
         super.onScrollChanged(l, t, oldl, oldt);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            int offset = (int) (mParallaxingView.getTop() - (t * PARALLAX_SPEED/2));
+            int offset = (int) (mParallaxingView.getTop() - (t * PARALLAX_SPEED / 2));
             mParallaxingView.setY(offset);
-        } else{
+        } else {
 
             // TODO Needs testing on API11 device (emulator)
 

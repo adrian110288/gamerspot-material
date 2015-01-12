@@ -77,7 +77,7 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_news_details, container, false);
+        View view = inflater.inflate(R.layout.fragment_news_details, container, false);
 
         ButterKnife.inject(this, view);
 

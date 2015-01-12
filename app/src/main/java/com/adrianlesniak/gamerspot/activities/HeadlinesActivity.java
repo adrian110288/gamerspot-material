@@ -2,7 +2,6 @@ package com.adrianlesniak.gamerspot.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.adrianlesniak.gamerspot.BuildConfig;
 import com.adrianlesniak.gamerspot.R;
@@ -20,7 +19,7 @@ public class HeadlinesActivity extends NavigationDrawerActivity implements OnHea
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(BuildConfig.DEBUG != true) {
+        if (BuildConfig.DEBUG != true) {
             Crashlytics.start(this);
         }
 

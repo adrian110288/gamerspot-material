@@ -1,8 +1,5 @@
 package com.adrianlesniak.gamerspot.views;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
@@ -10,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -153,7 +149,7 @@ public class FeedImage extends RelativeLayout {
         private void revealImage() {
 
             AlphaAnimation alphaAnimation = new AlphaAnimation(0f, 1f);
-            alphaAnimation.setDuration(REVEAL_DURATION -300);
+            alphaAnimation.setDuration(REVEAL_DURATION - 300);
             alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
