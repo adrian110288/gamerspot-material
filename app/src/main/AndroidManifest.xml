@@ -36,6 +36,7 @@
                 android:value=".activities.HeadlinesActivity" />
 
         </activity>
+        <meta-data android:name="com.crashlytics.ApiKey" android:value="10d24268d0942bddde0c0adbc14a3b9f38b8ba05"/>
 
     </application>
 

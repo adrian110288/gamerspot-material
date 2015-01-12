@@ -2,11 +2,14 @@ package com.adrianlesniak.gamerspot.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.adrianlesniak.gamerspot.BuildConfig;
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.fragments.NewsHeadlinesFragment;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
 import com.adrianlesniak.gamerspot.utilities.NewsFeed;
+import com.crashlytics.android.Crashlytics;
 
 
 public class HeadlinesActivity extends NavigationDrawerActivity implements OnHeadlineSelectedListener {
@@ -16,6 +19,11 @@ public class HeadlinesActivity extends NavigationDrawerActivity implements OnHea
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(BuildConfig.DEBUG != true) {
+            Crashlytics.start(this);
+        }
+
         headlinesFragment = new NewsHeadlinesFragment();
         displayHeadlines(savedInstanceState);
     }
