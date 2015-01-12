@@ -6,12 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
@@ -21,7 +19,6 @@ import com.adrianlesniak.gamerspot.database.DAO;
 import com.adrianlesniak.gamerspot.interfaces.FullArticleClickListener;
 import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
 import com.adrianlesniak.gamerspot.utilities.NewsFeed;
-import com.adrianlesniak.gamerspot.views.CustomScrollView;
 import com.adrianlesniak.gamerspot.views.FeedImage;
 import com.adrianlesniak.gamerspot.views.StickyScrollView;
 import com.melnykov.fab.FloatingActionButton;
@@ -90,8 +87,8 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
             mFeedMainImage.setImageFromUrl(urlList.get(0));
         }
 
+        mScrollView.attachViewForParallax(mFeedMainImage);
         mFab.attachToScrollView(mScrollView);
-        mScrollView.setScrollingEnabled(true);
 
         return view;
     }

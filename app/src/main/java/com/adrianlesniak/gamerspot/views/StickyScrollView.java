@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author Emil Sj�lander - sjolander.emil@gmail.com
  *
  */
-public class StickyScrollView extends CustomScrollView {
+public class StickyScrollView extends ParallaxScrollView {
 
     /**
      * Tag for views that should stick and have constant drawing. e.g. TextViews, ImageViews etc
