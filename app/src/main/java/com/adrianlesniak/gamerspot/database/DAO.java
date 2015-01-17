@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 
 import java.util.ArrayList;
 import java.util.ListIterator;

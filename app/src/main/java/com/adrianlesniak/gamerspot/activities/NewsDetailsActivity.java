@@ -5,7 +5,7 @@ import android.view.View;
 
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.fragments.NewsDetailsFragment;
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 
 /**
  * Created by Adrian Lesniak on 16-Jun-14.

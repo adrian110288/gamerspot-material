@@ -1,4 +1,8 @@
-package com.adrianlesniak.gamerspot.utilities;
+package com.adrianlesniak.gamerspot.models;
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -9,7 +13,8 @@ import java.util.Date;
 /**
  * Created by Adrian on 05-Jun-14.
  */
-public class NewsFeed implements Serializable, Comparable {
+@Table(name = "Favourites")
+public class NewsFeed extends Model implements Serializable, Comparable {
 
     /*
     1: pc
@@ -25,15 +30,23 @@ public class NewsFeed implements Serializable, Comparable {
     public static final int PLATFORM_NINTENDO = 4;
     public static final int PLATFORM_MOBILE = 5;
 
+    @Column(name = "GUID")
     private String guid;
+    @Column(name = "Title")
     private String title;
+    @Column(name = "Description")
     private String description;
+    @Column(name = "Link")
     private String link;
+    @Column(name = "Date")
     private Date date;
+    @Column(name = "Creator")
     private String creator;
+    @Column(name = "Provider")
     private String provider;
-    private int platform;
-    private boolean visited;
+
+//    @Column(name = "") private int platform;
+//    @Column(name = "guid") private boolean visited;
 
     public NewsFeed() {
     }
@@ -74,11 +87,6 @@ public class NewsFeed implements Serializable, Comparable {
         return date;
     }
 
-    public void setDate(long milisecondsIn) {
-
-        date = new Date(milisecondsIn);
-    }
-
     public void setDate(String dateIn) {
         try {
             date = new Date(dateIn);
@@ -91,6 +99,11 @@ public class NewsFeed implements Serializable, Comparable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setDate(long milisecondsIn) {
+
+        date = new Date(milisecondsIn);
     }
 
     public String getCreator() {
@@ -109,26 +122,26 @@ public class NewsFeed implements Serializable, Comparable {
         this.provider = provider;
     }
 
-    public int getPlatform() {
-        return platform;
-    }
+//    public int getPlatform() {
+//        return platform;
+//    }
+//
+//    public void setPlatform(int platformIn) {
+//        this.platform = platformIn;
+//    }
 
-    public void setPlatform(int platformIn) {
-        this.platform = platformIn;
-    }
-
-    public boolean getVisited() {
-        return this.visited;
-    }
-
-    public void setVisited(boolean visited) {
-
-        this.visited = visited;
-    }
+//    public boolean getVisited() {
+//        return this.visited;
+//    }
+//
+//    public void setVisited(boolean visited) {
+//
+//        this.visited = visited;
+//    }
 
     @Override
     public String toString() {
-        return "ID " + getGuid() + " TITLE " + getTitle() + " DESCRIPTION " + getDescription() + " LINK " + getLink() + " CREATOR " + getCreator() + " PROVIDER " + getProvider() + " PLATFORM " + getPlatform();
+        return "ID " + getGuid() + " TITLE " + getTitle() + " DESCRIPTION " + getDescription() + " LINK " + getLink() + " CREATOR " + getCreator() + " PROVIDER " + getProvider() + " PLATFORM ";
     }
 
     @Override

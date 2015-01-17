@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 import com.adrianlesniak.gamerspot.views.FeedViewHolder;
 
 import java.util.ArrayList;

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.database.DAO;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

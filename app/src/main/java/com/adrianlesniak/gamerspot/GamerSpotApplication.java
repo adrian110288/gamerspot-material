@@ -1,9 +1,6 @@
 package com.adrianlesniak.gamerspot;
 
-import android.app.Application;
-import android.content.Context;
-
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
+import com.activeandroid.app.Application;
 
 //import com.google.android.gms.analytics.GoogleAnalytics;
 //import com.google.android.gms.analytics.Tracker;
@@ -13,20 +10,20 @@ import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
  */
 public class GamerSpotApplication extends Application {
 
-    private static CommonUtilities utils = null;
+//    private static CommonUtilities utils = null;
 //    private static Tracker t = null;
 
     public GamerSpotApplication() {
     }
 
-    public static CommonUtilities getUtils(Context c) {
-
-        if (utils == null) {
-            utils = new CommonUtilities(c);
-        }
-
-        return utils;
-    }
+//    public static CommonUtilities getUtils(Context c) {
+//
+//        if (utils == null) {
+//            utils = new CommonUtilities(c);
+//        }
+//
+//        return utils;
+//    }
 
 //    synchronized public static Tracker getTracker(Context c) {
 //

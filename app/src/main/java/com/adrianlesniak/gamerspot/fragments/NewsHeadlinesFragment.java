@@ -23,9 +23,9 @@ import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.adapters.NewsFeedsRecyclerViewAdapter;
 import com.adrianlesniak.gamerspot.database.DAO;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
 import com.adrianlesniak.gamerspot.utilities.FeedFetcherTask;
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 import com.adrianlesniak.gamerspot.views.CustomTypefaceSpan;
 import com.adrianlesniak.gamerspot.views.FeedListSeparator;
 

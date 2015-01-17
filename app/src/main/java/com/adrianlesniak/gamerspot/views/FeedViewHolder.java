@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
 
 /**
  * Created by Adrian on 10-Jun-14.

@@ -7,7 +7,7 @@ import com.adrianlesniak.gamerspot.BuildConfig;
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.fragments.NewsHeadlinesFragment;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 import com.crashlytics.android.Crashlytics;
 
 

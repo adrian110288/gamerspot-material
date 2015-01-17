@@ -1,6 +1,6 @@
 package com.adrianlesniak.gamerspot.interfaces;
 
-import com.adrianlesniak.gamerspot.utilities.NewsFeed;
+import com.adrianlesniak.gamerspot.models.NewsFeed;
 
 /**
  * Created by Adrian on 17-Aug-14.
