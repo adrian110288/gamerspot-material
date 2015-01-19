@@ -9,16 +9,14 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
 import com.adrianlesniak.gamerspot.R;
-import com.adrianlesniak.gamerspot.database.DAO;
 import com.adrianlesniak.gamerspot.interfaces.FullArticleClickListener;
 import com.adrianlesniak.gamerspot.models.NewsFeed;
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
+import com.adrianlesniak.gamerspot.utilities.Utils;
 import com.adrianlesniak.gamerspot.views.FeedImage;
 import com.adrianlesniak.gamerspot.views.StickyScrollView;
 import com.melnykov.fab.FloatingActionButton;
@@ -55,12 +53,7 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
     RelativeLayout mHeaderView;
     //    @InjectView(R.id.button_full_article) GamerSpotButton fullArticleButton;
 
-    private String LOG = "ATTACH";
     private NewsFeed feed;
-    private int descriptionLayoutWidth = 0;
-
-    private ViewTreeObserver viewTreeObserver;
-    private DAO dao;
     private boolean isArticleFavourite = false;
     private boolean isSearched;
 
@@ -71,14 +64,12 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
         setHasOptionsMenu(true);
         feed = (NewsFeed) getArguments().get("FEED");
 //        isSearched = getArguments().getBoolean("searched");
-        dao = CommonUtilities.getDatabaseAccessor();
         getImagesUrl();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_news_details, container, false);
-
         ButterKnife.inject(this, view);
 
         if (urlList.size() >= 1) {
@@ -102,9 +93,7 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
         titleView.setText(feed.getTitle());
         titleView.setTextColor(getResources().getColor(android.R.color.white));
         creatorView.setText(feed.getCreator());
-
-        //TODO add data back to details
-        //dateView.setText(CommonUtilities.getFormattedDate(feed.getDate()));
+        dateView.setText(Utils.getFormattedDate(feed.getDate()));
         descriptionView.setText(Html.fromHtml(feed.getDescription().replaceAll("<img.+?>", "")));
     }
 

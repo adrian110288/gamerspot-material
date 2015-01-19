@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
 import com.adrianlesniak.gamerspot.models.NewsFeed;
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
+import com.adrianlesniak.gamerspot.utilities.Utils;
 
 /**
  * Created by Adrian on 10-Jun-14.
@@ -45,11 +45,9 @@ public class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         mFeed = feed;
 
         title_textView.setText(mFeed.getTitle());
-        creator_textView.setText(mFeed.getProvider());
+        creator_textView.setText(mFeed.getProvider().charAt(0) + mFeed.getProvider().substring(1).toLowerCase());
 //        image_holder.setBackgroundColor(mContext.getResources().getColor(getColor(mFeed.getPlatform())));
-
-        //TODO add data back to list item
-        //date_textView.setText(CommonUtilities.getFormattedDate(mFeed.getDate()));
+        date_textView.setText(Utils.getFormattedDate(mFeed.getDate()));
     }
 
     private int getColor(int platform) {

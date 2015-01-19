@@ -3,6 +3,19 @@
 
     <string-array name="drawer_news_items">
         <item>All news</item>
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+        <!--<item></item>-->
+
+
         <item>PC news</item>
         <item>Xbox news</item>
         <item>Playstation news</item>

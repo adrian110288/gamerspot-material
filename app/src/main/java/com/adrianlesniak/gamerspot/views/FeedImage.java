@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -19,11 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.Space;
 
 import com.adrianlesniak.gamerspot.R;
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
-import com.squareup.okhttp.OkHttpClient;
+import com.adrianlesniak.gamerspot.utilities.Utils;
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by Adrian on 06-Jan-15.
@@ -66,7 +62,7 @@ public class FeedImage extends RelativeLayout {
         mErrorImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_problem));
         setLayoutParams();
         setBackgroundColor(Color.parseColor(BACKGROUND_COLOR));
-        setMinimumHeight(CommonUtilities.convertDpToPx(mContext, MIN_HEIGHT));
+        setMinimumHeight(Utils.convertDpToPx(mContext, MIN_HEIGHT));
         instantiateFakeProgressBar();
     }
 
@@ -76,7 +72,7 @@ public class FeedImage extends RelativeLayout {
         mFakeProgressBar.setBackgroundResource(R.drawable.glow);
         this.addView(mFakeProgressBar, 1);
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtilities.convertDpToPx(mContext, 1), CommonUtilities.convertDpToPx(mContext, FAKEBAR_HEIGHT_IN_DP));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(Utils.convertDpToPx(mContext, 1), Utils.convertDpToPx(mContext, FAKEBAR_HEIGHT_IN_DP));
         params.addRule(ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         params.addRule(ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         mFakeProgressBar.setLayoutParams(params);
@@ -96,18 +92,7 @@ public class FeedImage extends RelativeLayout {
 
     public void setImageFromUrl(String url) {
         mUrl = url;
-
-        OkHttpClient okHttpClient = new OkHttpClient();
-
-
-        //TODO move picasso instance to Utils
-        Picasso picasso = new Picasso.Builder(mContext)
-                .downloader(new OkHttpDownloader(okHttpClient))
-                .build();
-
-
-
-        picasso.with(mContext).load(mUrl).into(mImageView, new DownloadCallback());
+        Utils.getPicassoInstance(mContext).with(mContext).load(mUrl).into(mImageView, new DownloadCallback());
     }
 
     private void setLayoutParams() {
@@ -127,6 +112,7 @@ public class FeedImage extends RelativeLayout {
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onSuccess() {
+            if (mErrorImage.getVisibility() == VISIBLE) removeView(mErrorImage);
             new ImageRevealThread().run();
         }
 

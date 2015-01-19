@@ -10,30 +10,10 @@ import com.activeandroid.app.Application;
  */
 public class GamerSpotApplication extends Application {
 
-//    private static CommonUtilities utils = null;
 //    private static Tracker t = null;
 
     public GamerSpotApplication() {
     }
-
-//    public static CommonUtilities getUtils(Context c) {
-//
-//        if (utils == null) {
-//            utils = new CommonUtilities(c);
-//        }
-//
-//        return utils;
-//    }
-
-//    synchronized public static Tracker getTracker(Context c) {
-//
-//        if (t == null) {
-//            GoogleAnalytics analytics = GoogleAnalytics.getInstance(c);
-//            t = analytics.newTracker(R.xml.app_tracker);
-//        }
-//
-//        return t;
-//    }
 
     @Override
     public void onCreate() {

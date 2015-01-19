@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.adrianlesniak.gamerspot.R;
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
+import com.adrianlesniak.gamerspot.utilities.Utils;
 
 /**
  * Created by Adrian on 04-Jan-15.
@@ -33,9 +33,6 @@ public class FeedListSeparator extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-
-
-        //TODO Add separator back
-        //outRect.bottom = CommonUtilities.convertDpToPx(0.5f);
+        outRect.bottom = Utils.convertDpToPx(mContext, 0.5f);
     }
 }

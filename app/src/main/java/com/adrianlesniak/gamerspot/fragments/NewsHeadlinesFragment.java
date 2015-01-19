@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,9 +21,9 @@ import com.adrianlesniak.gamerspot.adapters.NewsFeedsRecyclerViewAdapter;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
 import com.adrianlesniak.gamerspot.models.NewsFeed;
 import com.adrianlesniak.gamerspot.utilities.FeedsLoader;
+import com.adrianlesniak.gamerspot.utilities.Utils;
 import com.adrianlesniak.gamerspot.views.CustomTypefaceSpan;
-import com.adrianlesniak.gamerspot.views.FeedListSeparator;
-import com.squareup.okhttp.OkHttpClient;
+import com.adrianlesniak.gamerspot.views.GamerspotRecyclerView;
 
 import java.util.ArrayList;
 
@@ -37,8 +35,10 @@ import butterknife.InjectView;
  */
 public class NewsHeadlinesFragment extends Fragment implements LoaderManager.LoaderCallbacks/*implements AbsListView.OnScrollListener*/ {
 
+    @InjectView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @InjectView(R.id.headlines_recycler_view)
-    RecyclerView mRecyclerView;
+    GamerspotRecyclerView mRecyclerView;
     private Context mContext;
     private ArrayList<NewsFeed> feedList;
     private NewsFeedsRecyclerViewAdapter feedsAdapter;
@@ -53,9 +53,6 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
 
         mContext = getActivity();
         setHasOptionsMenu(true);
-
-        //TODO Add check for onkine/offline
-        getLoaderManager().initLoader(0, null, this ).forceLoad();
     }
 
     @Override
@@ -89,8 +86,14 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.addItemDecoration(new FeedListSeparator(getActivity()));
+        mSwipeRefreshLayout.setEnabled(false);
+
+        if (Utils.isOnline(mContext)) {
+            getLoaderManager().initLoader(0, null, this).forceLoad();
+        } else {
+            mSwipeRefreshLayout.setEnabled(true);
+            Utils.showToast(mContext, getResources().getString(R.string.no_network_connection));
+        }
 //        registerForContextMenu(listView);
 
     }
@@ -137,9 +140,10 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader loader, Object data) {
-        feedList = (ArrayList<NewsFeed>)data;
+        feedList = (ArrayList<NewsFeed>) data;
         feedsAdapter = new NewsFeedsRecyclerViewAdapter(mContext, feedList, mCallback);
         mRecyclerView.setAdapter(feedsAdapter);
+        mSwipeRefreshLayout.setEnabled(true);
     }
 
     @Override
@@ -157,20 +161,6 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
 //            searchDialogFragment = new SearchDialogFragment();
 //            searchDialogFragment.setTargetFragment(this, 1);
 //            searchDialogFragment.show(getFragmentManager(), "search");
-//
-//            return true;
-//        }
-//
-//        if (id == R.id.action_refresh) {
-//
-//            //TODO repeated code. Create method for starting async task
-//            if (CommonUtilities.isOnline()) {
-//
-//                getActivity().setProgressBarIndeterminateVisibility(true);
-//                downloadTask = new FeedFetcherTask(context, feedFetchHandler);
-//                downloadTask.execute();
-//            } else
-//                Toast.makeText(getActivity(), context.getResources().getString(R.string.no_network_connection), Toast.LENGTH_SHORT).show();
 //
 //            return true;
 //        }
