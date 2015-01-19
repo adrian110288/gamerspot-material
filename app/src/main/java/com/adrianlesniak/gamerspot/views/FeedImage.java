@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -19,7 +20,9 @@ import android.widget.Space;
 
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
+import com.squareup.okhttp.OkHttpClient;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -63,7 +66,7 @@ public class FeedImage extends RelativeLayout {
         mErrorImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_problem));
         setLayoutParams();
         setBackgroundColor(Color.parseColor(BACKGROUND_COLOR));
-        setMinimumHeight(CommonUtilities.convertDpToPx(MIN_HEIGHT));
+        setMinimumHeight(CommonUtilities.convertDpToPx(mContext, MIN_HEIGHT));
         instantiateFakeProgressBar();
     }
 
@@ -73,7 +76,7 @@ public class FeedImage extends RelativeLayout {
         mFakeProgressBar.setBackgroundResource(R.drawable.glow);
         this.addView(mFakeProgressBar, 1);
 
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtilities.convertDpToPx(1), CommonUtilities.convertDpToPx(FAKEBAR_HEIGHT_IN_DP));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(CommonUtilities.convertDpToPx(mContext, 1), CommonUtilities.convertDpToPx(mContext, FAKEBAR_HEIGHT_IN_DP));
         params.addRule(ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         params.addRule(ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         mFakeProgressBar.setLayoutParams(params);
@@ -93,7 +96,18 @@ public class FeedImage extends RelativeLayout {
 
     public void setImageFromUrl(String url) {
         mUrl = url;
-        Picasso.with(mContext).load(mUrl).into(mImageView, new DownloadCallback());
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+
+
+        //TODO move picasso instance to Utils
+        Picasso picasso = new Picasso.Builder(mContext)
+                .downloader(new OkHttpDownloader(okHttpClient))
+                .build();
+
+
+
+        picasso.with(mContext).load(mUrl).into(mImageView, new DownloadCallback());
     }
 
     private void setLayoutParams() {

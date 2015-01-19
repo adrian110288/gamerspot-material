@@ -46,8 +46,10 @@ public class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
         title_textView.setText(mFeed.getTitle());
         creator_textView.setText(mFeed.getProvider());
-        image_holder.setBackgroundColor(mContext.getResources().getColor(getColor(mFeed.getPlatform())));
-        date_textView.setText(CommonUtilities.getFormattedDate(mFeed.getDate()));
+//        image_holder.setBackgroundColor(mContext.getResources().getColor(getColor(mFeed.getPlatform())));
+
+        //TODO add data back to list item
+        //date_textView.setText(CommonUtilities.getFormattedDate(mFeed.getDate()));
     }
 
     private int getColor(int platform) {

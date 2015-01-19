@@ -34,6 +34,8 @@ public class FeedListSeparator extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
 
-        outRect.bottom = CommonUtilities.convertDpToPx(0.5f);
+
+        //TODO Add separator back
+        //outRect.bottom = CommonUtilities.convertDpToPx(0.5f);
     }
 }

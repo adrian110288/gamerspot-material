@@ -3,31 +3,29 @@ package com.adrianlesniak.gamerspot.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.adrianlesniak.gamerspot.GamerSpotApplication;
 import com.adrianlesniak.gamerspot.R;
 import com.adrianlesniak.gamerspot.adapters.NewsFeedsRecyclerViewAdapter;
-import com.adrianlesniak.gamerspot.database.DAO;
 import com.adrianlesniak.gamerspot.interfaces.OnHeadlineSelectedListener;
 import com.adrianlesniak.gamerspot.models.NewsFeed;
-import com.adrianlesniak.gamerspot.utilities.CommonUtilities;
-import com.adrianlesniak.gamerspot.utilities.FeedFetcherTask;
+import com.adrianlesniak.gamerspot.utilities.FeedsLoader;
 import com.adrianlesniak.gamerspot.views.CustomTypefaceSpan;
 import com.adrianlesniak.gamerspot.views.FeedListSeparator;
+import com.squareup.okhttp.OkHttpClient;
 
 import java.util.ArrayList;
 
@@ -37,20 +35,16 @@ import butterknife.InjectView;
 /**
  * Created by Adrian on 13-Jun-14.
  */
-public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnScrollListener*/ {
+public class NewsHeadlinesFragment extends Fragment implements LoaderManager.LoaderCallbacks/*implements AbsListView.OnScrollListener*/ {
 
-    private static FeedFetcherTask downloadTask;
-    private static ArrayList<NewsFeed> feedList = new ArrayList<NewsFeed>();
     @InjectView(R.id.headlines_recycler_view)
     RecyclerView mRecyclerView;
     private Context mContext;
-
+    private ArrayList<NewsFeed> feedList;
     private NewsFeedsRecyclerViewAdapter feedsAdapter;
     private OnHeadlineSelectedListener mCallback;
-    private DAO dao;
-    //    private SearchDialogFragment searchDialogFragment;
+//    private SearchDialogFragment searchDialogFragment;
 //    private AboutDialogFragment aboutDialogFragment;
-    private FeedFetchHandler feedFetchHandler;
 //    private int mLastFirstVisibleItem = 0;
 
     @Override
@@ -59,13 +53,9 @@ public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnS
 
         mContext = getActivity();
         setHasOptionsMenu(true);
-        dao = GamerSpotApplication.getUtils(mContext).getDatabaseAccessor();
-        feedFetchHandler = new FeedFetchHandler();
 
-        //TODO Loader required - Genymotion log (Skipped xxx frames. The application may be doing too much work on its main thread.)
-
-        feedList = dao.getFeeds(null);
-        feedsAdapter = new NewsFeedsRecyclerViewAdapter(mContext, feedList, mCallback);
+        //TODO Add check for onkine/offline
+        getLoaderManager().initLoader(0, null, this ).forceLoad();
     }
 
     @Override
@@ -100,32 +90,25 @@ public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnS
         super.onViewCreated(view, savedInstanceState);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.setAdapter(feedsAdapter);
         mRecyclerView.addItemDecoration(new FeedListSeparator(getActivity()));
 //        registerForContextMenu(listView);
 
-        if (CommonUtilities.isOnline()) {
-            downloadTask = new FeedFetcherTask(mContext, feedFetchHandler);
-            downloadTask.execute();
-        } else {
-            Toast.makeText(getActivity(), getResources().getString(R.string.no_network_connection), Toast.LENGTH_SHORT).show();
-        }
     }
 
-    private void loadMoreData() {
-
-        long platformId = NavigationDrawerFragment.getDrawerItemSelected();
-        ArrayList<NewsFeed> dataToAttach;
-
-        if (platformId == 0) {
-            dataToAttach = dao.loadMoreDataForScroll(null);
-        } else {
-            dataToAttach = dao.loadMoreDataForScroll(platformId);
-        }
-
-        feedList.addAll(dataToAttach);
-        feedsAdapter.notifyDataSetChanged();
-    }
+//    private void loadMoreData() {
+//
+//        long platformId = NavigationDrawerFragment.getDrawerItemSelected();
+//        ArrayList<NewsFeed> dataToAttach;
+//
+//        if (platformId == 0) {
+//            dataToAttach = dao.loadMoreDataForScroll(null);
+//        } else {
+//            dataToAttach = dao.loadMoreDataForScroll(platformId);
+//        }
+//
+//        feedList.addAll(dataToAttach);
+//        feedsAdapter.notifyDataSetChanged();
+//    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -145,6 +128,23 @@ public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnS
             spannableString.setSpan(new CustomTypefaceSpan(getActivity(), "fonts/GeosansLight.ttf"), 0, menuItem.getTitle().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             menuItem.setTitle(spannableString);
         }
+    }
+
+    @Override
+    public Loader onCreateLoader(int id, Bundle args) {
+        return new FeedsLoader(mContext);
+    }
+
+    @Override
+    public void onLoadFinished(Loader loader, Object data) {
+        feedList = (ArrayList<NewsFeed>)data;
+        feedsAdapter = new NewsFeedsRecyclerViewAdapter(mContext, feedList, mCallback);
+        mRecyclerView.setAdapter(feedsAdapter);
+    }
+
+    @Override
+    public void onLoaderReset(Loader loader) {
+        mRecyclerView.setAdapter(null);
     }
 
 //    @Override
@@ -184,41 +184,41 @@ public class NewsHeadlinesFragment extends Fragment /*implements AbsListView.OnS
 //        return false;
 //    }
 
-    public void refresh(long id) {
+//    public void refresh(long id) {
+//
+//        if (id == 6) {
+//            feedList = dao.getAllFavourites();
+//
+//            if (feedList.size() == 0) {
+//                CommonUtilities.showToast("No favourites");
+//            }
+//        } else {
+//
+//            if (id > 0 && id < 6) {
+//                feedList = dao.getFeeds(id);
+//            } else if (id == 0) {
+//                feedList = dao.getFeeds(null);
+//            }
+//
+//        }
+//
+//        feedsAdapter = new NewsFeedsRecyclerViewAdapter(mContext, feedList, mCallback);
+//        mRecyclerView.setAdapter(feedsAdapter);
+//        mRecyclerView.smoothScrollToPosition(0);
+//    }
 
-        if (id == 6) {
-            feedList = dao.getAllFavourites();
-
-            if (feedList.size() == 0) {
-                CommonUtilities.showToast("No favourites");
-            }
-        } else {
-
-            if (id > 0 && id < 6) {
-                feedList = dao.getFeeds(id);
-            } else if (id == 0) {
-                feedList = dao.getFeeds(null);
-            }
-
-        }
-
-        feedsAdapter = new NewsFeedsRecyclerViewAdapter(mContext, feedList, mCallback);
-        mRecyclerView.setAdapter(feedsAdapter);
-        mRecyclerView.smoothScrollToPosition(0);
-    }
-
-    private class FeedFetchHandler extends Handler {
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            int newFeeds = msg.what;
-
-            if (newFeeds > 0 && NavigationDrawerFragment.getDrawerItemSelected() == 0) {
-                refresh(0);
-            }
-//            CommonUtilities.showToast(getResources().getQuantityString(R.plurals.new_feeds_plurals, newFeeds, newFeeds));
-        }
-    }
+//    private class FeedFetchHandler extends Handler {
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//
+//            int newFeeds = msg.what;
+//
+//            if (newFeeds > 0 && NavigationDrawerFragment.getDrawerItemSelected() == 0) {
+//                refresh(0);
+//            }
+////            CommonUtilities.showToast(getResources().getQuantityString(R.plurals.new_feeds_plurals, newFeeds, newFeeds));
+//        }
+//    }
 }

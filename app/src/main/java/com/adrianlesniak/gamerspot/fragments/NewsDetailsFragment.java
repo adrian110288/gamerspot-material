@@ -102,7 +102,9 @@ public class NewsDetailsFragment extends Fragment implements FullArticleClickLis
         titleView.setText(feed.getTitle());
         titleView.setTextColor(getResources().getColor(android.R.color.white));
         creatorView.setText(feed.getCreator());
-        dateView.setText(CommonUtilities.getFormattedDate(feed.getDate()));
+
+        //TODO add data back to details
+        //dateView.setText(CommonUtilities.getFormattedDate(feed.getDate()));
         descriptionView.setText(Html.fromHtml(feed.getDescription().replaceAll("<img.+?>", "")));
     }
 

@@ -13,7 +13,6 @@ import java.util.Date;
 /**
  * Created by Adrian on 05-Jun-14.
  */
-@Table(name = "Favourites")
 public class NewsFeed extends Model implements Serializable, Comparable {
 
     /*
@@ -30,19 +29,12 @@ public class NewsFeed extends Model implements Serializable, Comparable {
     public static final int PLATFORM_NINTENDO = 4;
     public static final int PLATFORM_MOBILE = 5;
 
-    @Column(name = "GUID")
     private String guid;
-    @Column(name = "Title")
     private String title;
-    @Column(name = "Description")
     private String description;
-    @Column(name = "Link")
     private String link;
-    @Column(name = "Date")
     private Date date;
-    @Column(name = "Creator")
     private String creator;
-    @Column(name = "Provider")
     private String provider;
 
 //    @Column(name = "") private int platform;

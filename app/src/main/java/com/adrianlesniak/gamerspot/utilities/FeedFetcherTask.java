@@ -208,8 +208,8 @@ public class FeedFetcherTask extends AsyncTask<String, Void, Integer> {
                     }
 
                     feed.setProvider(provider);
-                    feed.setPlatform(platform);
-                    feed.setVisited(false);
+//                    feed.setPlatform(platform);
+//                    feed.setVisited(false);
 
                     newFeeds.add(feed);
                 }

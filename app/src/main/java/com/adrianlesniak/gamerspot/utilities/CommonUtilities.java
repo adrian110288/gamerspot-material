@@ -37,7 +37,7 @@ public class CommonUtilities {
         cachedBlurredImages = new HashMap<String, Bitmap>();
     }
 
-    public static boolean isOnline() {
+    public static boolean isOnline(Context context) {
 
         boolean isOnline = false;
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -61,35 +61,15 @@ public class CommonUtilities {
         return df.format(dateFormatString, dateIn).toString();
     }
 
-    public static HashMap<String, BitmapDrawable> getCachedImages() {
-        return cachedImages;
-    }
-
-    public static void setCachedImages(HashMap<String, BitmapDrawable> imagesIn) {
-        cachedImages = imagesIn;
-    }
-
-    public static void addCachedBlurredImage(String imageId, Bitmap imageBitmapIn) {
-        cachedBlurredImages.put(imageId, imageBitmapIn);
-    }
-
-    public static BitmapDrawable getCachedImage(String idIn) {
-        return cachedImages.get(idIn);
-    }
-
-    public static Bitmap getCachedBlurredImage(String idIn) {
-        return cachedBlurredImages.get(idIn);
-    }
-
     public static DAO getDatabaseAccessor() {
         return dao;
     }
 
-    public static void showToast(String text) {
+    public static void showToast(Context context, String text) {
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
     }
 
-    public static int convertDpToPx(float dp) {
+    public static int convertDpToPx(Context context, float dp) {
         return Math.round(dp * (context.getResources().getDisplayMetrics().xdpi / DisplayMetrics.DENSITY_DEFAULT));
 
     }
