@@ -23,6 +23,7 @@ public class NavigationDrawerListAdapter extends ArrayAdapter<String> {
     private LayoutInflater mInflater;
     private DrawerListViewHolder holder;
 
+    //TODO Adapter busted
     public NavigationDrawerListAdapter(Context context) {
         super(context, 0);
 

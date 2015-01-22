@@ -9,7 +9,8 @@ import com.adrianlesniak.gamerspot.R;
 /**
  * Created by Adrian on 05-Jan-15.
  */
-public class ToolbarActivity extends ActionBarActivity {
+public class
+        ToolbarActivity extends ActionBarActivity {
 
     protected Toolbar toolbar;
 

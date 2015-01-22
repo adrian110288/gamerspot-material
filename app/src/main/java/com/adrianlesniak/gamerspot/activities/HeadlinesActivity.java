@@ -14,6 +14,8 @@ import com.crashlytics.android.Crashlytics;
 public class HeadlinesActivity extends NavigationDrawerActivity implements OnHeadlineSelectedListener {
 
     private NewsHeadlinesFragment headlinesFragment;
+    private String[] mQueryValues;
+    private Bundle mFragmentBundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,8 +25,25 @@ public class HeadlinesActivity extends NavigationDrawerActivity implements OnHea
             Crashlytics.start(this);
         }
 
+        mQueryValues = getResources().getStringArray(R.array.drawer_news_items_query_keys);
+        mFragmentBundle = new Bundle();
+
         headlinesFragment = new NewsHeadlinesFragment();
         displayHeadlines(savedInstanceState);
+    }
+
+    @Override
+    protected void downloadFeedsForPosition(int positionIn) {
+
+        mFragmentBundle.clear();
+        mFragmentBundle.putString("serviceQueryValue", mQueryValues[positionIn]);
+
+
+        //TODO Instead of creating new fragment, send message to the headlinesFragment to update RecyclerViewAdapter
+        headlinesFragment = new NewsHeadlinesFragment();
+        headlinesFragment.setArguments(mFragmentBundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, headlinesFragment, "").commit();
     }
 
     private void displayHeadlines(Bundle savedInstanceState) {

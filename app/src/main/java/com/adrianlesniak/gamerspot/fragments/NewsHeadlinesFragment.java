@@ -33,16 +33,19 @@ import butterknife.InjectView;
 /**
  * Created by Adrian on 13-Jun-14.
  */
-public class NewsHeadlinesFragment extends Fragment implements LoaderManager.LoaderCallbacks/*implements AbsListView.OnScrollListener*/ {
+public class NewsHeadlinesFragment extends Fragment implements LoaderManager.LoaderCallbacks, NavigationDrawerFragment.NavigationDrawerCallbacks /*implements AbsListView.OnScrollListener*/ {
 
     @InjectView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout mSwipeRefreshLayout;
     @InjectView(R.id.headlines_recycler_view)
     GamerspotRecyclerView mRecyclerView;
     private Context mContext;
+    private String mServiceQueryValue = "";
     private ArrayList<NewsFeed> feedList;
     private NewsFeedsRecyclerViewAdapter feedsAdapter;
     private OnHeadlineSelectedListener mCallback;
+
+    private Bundle mLoaderBundle;
 //    private SearchDialogFragment searchDialogFragment;
 //    private AboutDialogFragment aboutDialogFragment;
 //    private int mLastFirstVisibleItem = 0;
@@ -50,6 +53,10 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null && getArguments().getString("serviceQueryValue") != null) {
+            mServiceQueryValue = getArguments().getString("serviceQueryValue");
+        }
 
         mContext = getActivity();
         setHasOptionsMenu(true);
@@ -89,7 +96,11 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
         mSwipeRefreshLayout.setEnabled(false);
 
         if (Utils.isOnline(mContext)) {
-            getLoaderManager().initLoader(0, null, this).forceLoad();
+
+            mLoaderBundle = new Bundle();
+            mLoaderBundle.putString("serviceQueryValue", mServiceQueryValue);
+
+            getLoaderManager().initLoader(0, mLoaderBundle, this).forceLoad();
         } else {
             mSwipeRefreshLayout.setEnabled(true);
             Utils.showToast(mContext, getResources().getString(R.string.no_network_connection));
@@ -134,8 +145,8 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
     }
 
     @Override
-    public Loader onCreateLoader(int id, Bundle args) {
-        return new FeedsLoader(mContext);
+    public Loader onCreateLoader(int id, Bundle bundleIn) {
+        return new FeedsLoader(mContext, bundleIn.getString("serviceQueryValue"));
     }
 
     @Override
@@ -149,6 +160,11 @@ public class NewsHeadlinesFragment extends Fragment implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader loader) {
         mRecyclerView.setAdapter(null);
+    }
+
+    @Override
+    public void onNavigationDrawerItemSelected(int position) {
+
     }
 
 //    @Override

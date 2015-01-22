@@ -3,25 +3,32 @@
 
     <string-array name="drawer_news_items">
         <item>All news</item>
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
-        <!--<item></item>-->
+        <item>Gamespot</item>
+        <item>Joystiq</item>
+        <item>PC Gamer</item>
+        <!--<item>Polygon</item>-->
+        <item>Eurogamer</item>
+        <item>N4G</item>
+        <item>PS4 Daily</item>
+        <item>PS Blog EU</item>
+        <item>IGN</item>
+        <item>VG24/7</item>
+        <item>Inc Gamer</item>
+    </string-array>
 
-
-        <item>PC news</item>
-        <item>Xbox news</item>
-        <item>Playstation news</item>
-        <item>Nintendo news</item>
-        <item>Mobile news</item>
-        <item>Favourites</item>
+    <string-array name="drawer_news_items_query_keys">
+        <item></item>
+        <item>gamespot</item>
+        <item>joystiq</item>
+        <item>pcgamer</item>
+        <!--<item>Polygon</item>-->
+        <item>eurogamer</item>
+        <item>n4g</item>
+        <item>ps4daily</item>
+        <item>psblogeu</item>
+        <item>ign</item>
+        <item>vg24/7</item>
+        <item>incgamer</item>
     </string-array>
 
 </resources>

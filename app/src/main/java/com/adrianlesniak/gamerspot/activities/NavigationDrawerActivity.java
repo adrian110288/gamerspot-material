@@ -9,7 +9,7 @@ import com.adrianlesniak.gamerspot.fragments.NavigationDrawerFragment;
 /**
  * Created by Adrian on 05-Jan-15.
  */
-public class NavigationDrawerActivity extends ToolbarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+public abstract class NavigationDrawerActivity extends ToolbarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
@@ -26,7 +26,10 @@ public class NavigationDrawerActivity extends ToolbarActivity implements Navigat
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        downloadFeedsForPosition(position);
     }
+
+    protected abstract void downloadFeedsForPosition(int positionIn);
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {

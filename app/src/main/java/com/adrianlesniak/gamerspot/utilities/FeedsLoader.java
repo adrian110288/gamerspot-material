@@ -19,8 +19,14 @@ import java.util.ArrayList;
  */
 public class FeedsLoader extends AsyncTaskLoader<ArrayList<NewsFeed>> {
 
-    public FeedsLoader(Context context) {
+    private Request request;
+    private Response response;
+
+    private String mServiceQueryValue;
+
+    public FeedsLoader(Context context, String serviceQueryValueIn) {
         super(context);
+        mServiceQueryValue = serviceQueryValueIn;
     }
 
     @Override
@@ -29,7 +35,7 @@ public class FeedsLoader extends AsyncTaskLoader<ArrayList<NewsFeed>> {
         ArrayList<NewsFeed> result = new ArrayList<>();
 
         try {
-            String s = run("http://1-dot-gamerspot-0914.appspot.com/getall?service=gamespot");
+            String s = run("http://1-dot-gamerspot-0914.appspot.com/getall?service=" + mServiceQueryValue);
             JSONArray dataJSON = new JSONArray(s);
 
             JSONObject dataTemp;
@@ -59,8 +65,8 @@ public class FeedsLoader extends AsyncTaskLoader<ArrayList<NewsFeed>> {
     }
 
     private String run(String url) throws IOException {
-        Request request = new Request.Builder().url(url).build();
-        Response response = Utils.getsOkHttpClient().newCall(request).execute();
+        request = new Request.Builder().url(url).build();
+        response = Utils.getsOkHttpClient().newCall(request).execute();
         return response.body().string();
     }
 }
